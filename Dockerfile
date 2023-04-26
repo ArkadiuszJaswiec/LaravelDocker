@@ -59,3 +59,4 @@ RUN apt-get update && \
     service rabbitmq-server restart
 
 
+

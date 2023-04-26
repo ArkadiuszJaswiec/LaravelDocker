@@ -36,7 +36,7 @@ services:
 
     rabbitmq:
       image: rabbitmq
-      container_name: :rabbitmq
+      container_name: rabbitmq
       restart: always
       environment:
         RABBITMQ_DEFAULT_USER: root
