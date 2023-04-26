@@ -58,14 +58,13 @@ class HealthCheckController extends Controller
         }
 //MongoDB
         $komunikat_mongo = "to check";
+
         try {
-            // Sprawdzenie połączenia z bazą danych MongoDB
-            DB::connection('mongodb')->getMongoClient();
-            // Połączenie z bazą danych MongoDB działa
-            $komunikat_mongo= 'ok';
+            $connection = DB::connection('mongodb')->getMongoClient();
+            $databases = $connection->listDatabases();
+            $komunikat_mongo = 'ok';
         } catch (\Exception $e) {
-            // Połączenie z bazą danych MongoDB nie działa
-            $komunikat_mongo= 'failed';
+            $komunikat_mongo = 'failed';
         }
 
         return response()->json(['mongo' => $komunikat_mongo,'redis'=>$komunikat_redis,'postgres'=>$komunikat_postgres,'rabbit'=>$komunikat_rabbit]);

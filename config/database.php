@@ -113,11 +113,11 @@ return [
 
         'mongodb' => [
             'driver'   => 'mongodb',
-            'host'     => env('DB_HOST_2', '127.0.0.1'),
-            'port'     => env('DB_PORT_2', '27017'),
-            'database' => env('DB_DATABASE_2', 'database_name'),
-            'username' => env('DB_USERNAME_2', 'root'),
-            'password' => env('DB_PASSWORD_2', 'root'),
+            'host'     => env('DB_HOST_MONGO', 'mongodb'),
+            'port'     => env('DB_PORT_MONGO', 27017),
+            'database' => env('DB_DATABASE_MONGO', 'database_mongo'),
+            'username' => env('DB_USERNAME_MONGO', 'root'),
+            'password' => env('DB_PASSWORD_MONGO', 'root'),
             'options'  => [
                 'database' => 'admin',
             ],
