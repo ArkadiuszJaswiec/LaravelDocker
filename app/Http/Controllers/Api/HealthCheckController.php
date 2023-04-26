@@ -45,17 +45,20 @@ class HealthCheckController extends Controller
         }
 //Rabbit
         $komunikat_rabbit = 'to check';
-        $connection = new AMQPStreamConnection(
-            'localhost', // adres serwera RabbitMQ
-            5672, // numer portu
-            'root', // użytkownik
-            'root' // hasło
-        );
-        if ($connection->isConnected()) {
-            $komunikat_rabbit = 'ok';
-        } else {
-            $komunikat_rabbit = 'failed';
+        try{
+            $connection = new AMQPStreamConnection(
+                'localhost', // adres serwera RabbitMQ
+                5672, // numer portu
+                'root', // użytkownik
+                'root' // hasło
+            );
+            if ($connection->isConnected()) {
+                $komunikat_rabbit = 'ok';
+            }
         }
+        catch (\Exception $e) {
+                $komunikat_rabbit = 'failed';
+            }
 //MongoDB
         $komunikat_mongo = "to check";
 
