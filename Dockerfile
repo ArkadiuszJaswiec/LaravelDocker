@@ -1,15 +1,13 @@
-FROM php:8.0.3-fpm
+FROM php:8.1.7-fpm
 
 RUN docker-php-ext-install pdo pdo_mysql
 
+RUN apt-get update -y && apt-get install -y openssl zip unzip git libonig-dev librabbitmq-dev
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
+    && ln -s /usr/local/bin/composer /usr/bin/composer
 
-RUN apt-get update
+RUN docker-php-ext-install pdo mbstring sockets
 
-# Install useful tools
-RUN apt-get -y install apt-utils nano wget dialog vim
-
-# Install important libraries
-RUN echo "\e[1;33mInstall important libraries\e[0m"
 RUN apt-get -y install --fix-missing \
     apt-utils \
     build-essential \
@@ -39,13 +37,12 @@ RUN docker-php-ext-install \
     soap \
     pcntl \
     mbstring \
-    tokenizer \
     bz2 \
     zip \
     intl
 
-RUN pecl install mongodb && \
-    docker-php-ext-enable mongodb
+RUN pecl install mongodb && docker-php-ext-enable mongodb
+RUN pecl install amqp && docker-php-ext-enable amqp
 
 # Install Postgre PDO
 RUN apt-get install -y libpq-dev \
@@ -59,4 +56,10 @@ RUN apt-get update && \
     service rabbitmq-server restart
 
 
+WORKDIR /app
+COPY ./ /app
 
+
+RUN composer install
+
+CMD php artisan serve --host=0.0.0.0 --port=8000

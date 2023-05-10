@@ -23,6 +23,7 @@ class HealthCheckController extends Controller
             DB::connection('pgsql')->getPdo();
             $komunikat_postgres= "ok";
         } catch (\Exception $e) {
+//            $erPos= $e->getMessage();
             $komunikat_postgres="failed";
         }
 //REDIS
@@ -41,13 +42,14 @@ class HealthCheckController extends Controller
             }
         } catch (\Exception $e) {
             // W przypadku wystąpienia błędu, ustawiamy wartość 'nok'
+//            $erRed= $e->getMessage();
             $komunikat_redis = 'failed';
         }
 //Rabbit
         $komunikat_rabbit = 'to check';
         try{
             $connection = new AMQPStreamConnection(
-                'localhost', // adres serwera RabbitMQ
+                '172.25.112.1', // adres serwera RabbitMQ
                 5672, // numer portu
                 'root', // użytkownik
                 'root' // hasło
@@ -57,6 +59,7 @@ class HealthCheckController extends Controller
             }
         }
         catch (\Exception $e) {
+//            $erRa= $e->getMessage();
                 $komunikat_rabbit = 'failed';
             }
 //MongoDB
@@ -67,10 +70,12 @@ class HealthCheckController extends Controller
             $databases = $connection->listDatabases();
             $komunikat_mongo = 'ok';
         } catch (\Exception $e) {
+//            $erMon= $e->getMessage();
             $komunikat_mongo = 'failed';
         }
 
         return response()->json(['mongo' => $komunikat_mongo,'redis'=>$komunikat_redis,'postgres'=>$komunikat_postgres,'rabbit'=>$komunikat_rabbit]);
+//        return response()->json(['mongo' => $erMon,'redis'=>$erRed,'postgres'=>$erPos,'rabbit'=>$erRa]);
     }
 
     /**
