@@ -70,8 +70,8 @@ class HealthCheckController extends Controller
             $databases = $connection->listDatabases();
             $komunikat_mongo = 'ok';
         } catch (\Exception $e) {
-            $komunikat_mongo= $e->getMessage();
-//            $komunikat_mongo = 'failed';
+//            $komunikat_mongo= $e->getMessage();
+            $komunikat_mongo = 'failed';
         }
 
         return response()->json(['mongo' => $komunikat_mongo,'redis'=>$komunikat_redis,'postgres'=>$komunikat_postgres,'rabbit'=>$komunikat_rabbit]);
