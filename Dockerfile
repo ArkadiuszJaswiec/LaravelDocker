@@ -62,4 +62,7 @@ COPY ./ /app
 
 RUN composer install
 
+CMD chmod -R 777 storage
+CMD chmod -R 777 bootstrap/cache
 CMD php artisan serve --host=0.0.0.0 --port=8000
+

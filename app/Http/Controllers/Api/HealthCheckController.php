@@ -49,7 +49,7 @@ class HealthCheckController extends Controller
         $komunikat_rabbit = 'to check';
         try{
             $connection = new AMQPStreamConnection(
-                '172.25.112.1', // adres serwera RabbitMQ
+                '172.31.96.1', // adres serwera RabbitMQ
                 5672, // numer portu
                 'root', // użytkownik
                 'root' // hasło
@@ -70,8 +70,8 @@ class HealthCheckController extends Controller
             $databases = $connection->listDatabases();
             $komunikat_mongo = 'ok';
         } catch (\Exception $e) {
-//            $erMon= $e->getMessage();
-            $komunikat_mongo = 'failed';
+            $komunikat_mongo= $e->getMessage();
+//            $komunikat_mongo = 'failed';
         }
 
         return response()->json(['mongo' => $komunikat_mongo,'redis'=>$komunikat_redis,'postgres'=>$komunikat_postgres,'rabbit'=>$komunikat_rabbit]);

@@ -1,5 +1,18 @@
 version: '3'
 services:
+    app:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        ports:
+            - "8000:8000"
+        depends_on:
+            - postgresql
+            - mongodb
+            - redis
+            - rabbitmq
+        volumes:
+            - .:/app
     postgresql:
       image: postgres
       container_name: postgres
