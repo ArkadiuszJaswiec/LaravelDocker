@@ -11,8 +11,6 @@ services:
             - mongodb
             - redis
             - rabbitmq
-        volumes:
-            - .:/app
     postgresql:
       image: postgres
       container_name: postgres

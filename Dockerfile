@@ -59,6 +59,10 @@ RUN apt-get update && \
 WORKDIR /app
 COPY ./ /app
 
+# Wyczyszczenie konfiguracji Laravela
+RUN php artisan config:clear
+# Wyczyszczenie konfiguracji Laravela
+RUN php artisan cache:clear
 
 RUN composer install
 
