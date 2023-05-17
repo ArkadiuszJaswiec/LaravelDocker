@@ -22,7 +22,7 @@ class AuthController extends Controller
 
         $data = $request->json()->all();
 
-
+//SPRAWDZENIE CZY UŻYTKOWNIK ISTNIEJE
         $isEmail=DB::table('users')
             ->where('email', '=', $data['email'])
             ->count();
@@ -41,38 +41,6 @@ class AuthController extends Controller
                 'street' => $data['street'],
                 'zipCode' => $data['zipCode'],
             ]);
-//        $user = User::create([
-//            'email' => $request->email,
-//            'password' => Hash::make($request->password),
-//            'firstName' => $request->firstName,
-//            'lastName' => $request->lastName,
-//            'country' => $request->country,
-//            'city' => $request->city,
-//            'street' => $request->street,
-//            'zipCode' => $request->zipCode,
-//        ]);
-//        $user = new User;
-//        $user->email =$request->input('email');
-//        $user->password = Hash::make($request->input('password'));
-//        $user->firstName =$request->input('firstName');
-//        $user->lastName =$request->input('lastName');
-//        $user->country =$request->input('country');
-//        $user->city=$request->input('city');
-//        $user->street=$request->input('street');
-//        $user->zipCode=$request->input('zipCode');
-//        $user->save();
-
-//        $user = new User;
-//        $user->email =$data['email'];
-//        $user->password = Hash::make($data['password']);
-//        $user->firstName =$data['firstName'];
-//        $user->lastName =$data['lastName'];
-//        $user->country =$data['country'];
-//        $user->city=$data['city'];
-//        $user->street=$data['street'];
-//        $user->zipCode=$data['zipCode'];
-//        $user->save();
-
         $id_usr =$user->id;
 
         // Generowanie tokena JWT
@@ -81,13 +49,12 @@ class AuthController extends Controller
         $now = Carbon::now()->tz('Europe/Warsaw');
         $codeLife = $now->copy()->addMinutes(10)->format('Y-m-d H:i:s');
 
-
         $update_usr = User::findOrFail($id_usr);
         $update_usr->activationCode = $token;
         $update_usr->codeLife=$codeLife;
         $update_usr->save();
 
-        return response()->json(['message' => 'Użytkownik został zarejestrowany', 'token do sprawdzenia'=>$token], 201);
+        return response()->json(['message' => 'Użytkownik został zarejestrowany', 'Token do potwierdzenia'=>$token], 201);
     }
     public function confirmRegistration(Request $request)
     {
@@ -97,10 +64,8 @@ class AuthController extends Controller
         // Wyszukanie użytkownika po kodzie aktywacyjnym
         $user = User::where('activationCode', $data['activationCode'])->first();
 
-//        $now = Carbon::now()->tz('Europe/Warsaw');
 
         $now = Carbon::now()->tz('Europe/Warsaw');
-        $codeLife = $now->copy()->addMinutes(10)->format('Y-m-d H:i:s');
 
         $terazDateTime = new DateTime($now->format('Y-m-d H:i:s'));
         $czasZyciaDateTime = new DateTime($user->codeLife);
@@ -118,7 +83,7 @@ class AuthController extends Controller
         }
 
 
-        // Kod aktywacyjny jest poprawny i ważny - dokonaj dalszych działań
+        // Kod aktywacyjny jest poprawny i ważny
         $update_usr = User::findOrFail($user->id);
         $update_usr->status=1;
         $update_usr->activationCode="";

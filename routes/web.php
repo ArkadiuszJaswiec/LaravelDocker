@@ -18,6 +18,5 @@ Route::get('/', function () {
 });
 
 Route::get('/health', [App\Http\Controllers\Api\HealthCheckController::class, 'index']);
-Route::post('/health/print', [App\Http\Controllers\Api\HealthCheckController::class, 'print']);
 Route::post('/auth/registration', [App\Http\Controllers\Api\AuthController::class, 'register']);
 Route::post('/auth/registration/confirm', [App\Http\Controllers\Api\AuthController::class, 'confirmRegistration']);
