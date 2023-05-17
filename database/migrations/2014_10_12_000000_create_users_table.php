@@ -15,12 +15,18 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
             $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->rememberToken();
-            $table->timestamps();
+            $table->string('firstName');
+            $table->string('lastName');
+            $table->string('country');
+            $table->string('city');
+            $table->string('street');
+            $table->integer('zipCode');
+            $table->string('activationCode', 500)->nullable();
+            $table->dateTime('codeLife')->nullable();
+            $table->boolean('status')->default(0);
+            $table->timestamps(); // Dodaje pola 'updated_at' i 'created_at'
         });
     }
 

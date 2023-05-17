@@ -50,10 +50,10 @@ RUN apt-get install -y libpq-dev \
     && docker-php-ext-install pdo pdo_pgsql pgsql
 
 # Install RabbitMQ
-RUN apt-get update && \
-    apt-get install -y rabbitmq-server && \
-    rabbitmq-plugins enable rabbitmq_management && \
-    service rabbitmq-server restart
+#RUN apt-get update && \
+#    apt-get install -y rabbitmq-server && \
+#    rabbitmq-plugins enable rabbitmq_management && \
+#    service rabbitmq-server restart
 
 
 WORKDIR /app
@@ -66,7 +66,7 @@ RUN php artisan cache:clear
 
 RUN composer install
 
-CMD chmod -R 777 storage
-CMD chmod -R 777 bootstrap/cache
-CMD php artisan serve --host=0.0.0.0 --port=8000
+RUN chmod -R 777 storage
+RUN chmod -R 777 bootstrap/cache
+CMD php artisan migrate && php artisan serve --host=0.0.0.0 --port=8000
 

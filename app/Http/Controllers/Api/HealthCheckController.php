@@ -23,7 +23,7 @@ class HealthCheckController extends Controller
             DB::connection('pgsql')->getPdo();
             $komunikat_postgres= "ok";
         } catch (\Exception $e) {
-//            $erPos= $e->getMessage();
+//            $komunikat_postgres= $e->getMessage();
             $komunikat_postgres="failed";
         }
 //REDIS
@@ -49,7 +49,7 @@ class HealthCheckController extends Controller
         $komunikat_rabbit = 'to check';
         try{
             $connection = new AMQPStreamConnection(
-                '172.31.96.1', // adres serwera RabbitMQ
+                '10.0.0.50', // adres serwera RabbitMQ
                 5672, // numer portu
                 'root', // użytkownik
                 'root' // hasło
@@ -73,7 +73,6 @@ class HealthCheckController extends Controller
 //            $komunikat_mongo= $e->getMessage();
             $komunikat_mongo = 'failed';
         }
-
         return response()->json(['mongo' => $komunikat_mongo,'redis'=>$komunikat_redis,'postgres'=>$komunikat_postgres,'rabbit'=>$komunikat_rabbit]);
 //        return response()->json(['mongo' => $erMon,'redis'=>$erRed,'postgres'=>$erPos,'rabbit'=>$erRa]);
     }
@@ -121,5 +120,11 @@ class HealthCheckController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function print(Request $request)
+    {
+        $a = $request->a;
+        return response()->json(['mongo' =>$a]);
     }
 }

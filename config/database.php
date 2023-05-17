@@ -66,7 +66,7 @@ return [
         'pgsql' => [
             'driver' => 'pgsql',
             'url' => env('DATABASE_URL'),
-            'host' => env('DB_HOST', '127.0.0.1'),
+            'host' => env('DB_HOST', '10.0.0.20'),
             'port' => env('DB_PORT', '5432'),
             'database' => env('DB_DATABASE', 'forge'),
             'username' => env('DB_USERNAME', 'forge'),
@@ -94,7 +94,7 @@ return [
         'rabbitmq' => [
             'driver' => 'rabbitmq',
             'dsn' => env('RABBITMQ_DSN', null),
-            'host' => env('RABBITMQ_HOST', 'rabbitmq'),
+            'host' => env('RABBITMQ_HOST', '10.0.0.50'),
             'port' => env('RABBITMQ_PORT', 5672),
             'vhost' => env('RABBITMQ_VHOST', '/'),
             'login' => env('RABBITMQ_USER', 'root'),
@@ -113,7 +113,7 @@ return [
 
         'mongodb' => [
             'driver'   => 'mongodb',
-            'host'     => env('DB_HOST_MONGO', 'mongodb'),
+            'host'     => env('DB_HOST_MONGO', '10.0.0.30'),
             'port'     => env('DB_PORT_MONGO', 27017),
             'database' => env('DB_DATABASE_MONGO', 'database_mongo'),
             'username' => env('DB_USERNAME_MONGO', 'root'),
@@ -168,7 +168,7 @@ return [
 
         'cache' => [
             'url' => env('REDIS_URL'),
-            'host' => env('REDIS_HOST', '127.0.0.1'),
+            'host' => env('REDIS_HOST', '10.0.0.40'),
             'password' => env('REDIS_PASSWORD', null),
             'port' => env('REDIS_PORT', '6379'),
             'database' => env('REDIS_CACHE_DB', '1'),
