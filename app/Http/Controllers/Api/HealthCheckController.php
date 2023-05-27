@@ -122,9 +122,4 @@ class HealthCheckController extends Controller
         //
     }
 
-    public function print(Request $request)
-    {
-        $a = $request->a;
-        return response()->json(['mongo' =>$a]);
-    }
 }

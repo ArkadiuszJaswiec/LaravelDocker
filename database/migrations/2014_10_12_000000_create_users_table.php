@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('city');
             $table->string('street');
             $table->integer('zipCode');
-            $table->string('activationCode', 500)->nullable();
+            $table->string('activationCode', 10)->nullable();
             $table->dateTime('codeLife')->nullable();
             $table->boolean('status')->default(0);
             $table->timestamps(); // Dodaje pola 'updated_at' i 'created_at'
