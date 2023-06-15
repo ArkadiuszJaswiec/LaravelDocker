@@ -125,7 +125,7 @@ class AuthController extends Controller
         $key = 'example_key';
         $payload = [
             'iat' =>  Carbon::now()->timestamp,
-            'exp'=>Carbon::now()->addMinutes(5)->timestamp,
+            'exp'=>Carbon::now()->addMinutes(30)->timestamp,
             'sub'=> $email
             ];
         $payload_refresh = [
