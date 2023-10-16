@@ -21,9 +21,11 @@ This project uses a connection to a PostgreSQL database. The project includes ty
 
 Each project has its own description, time to complete and owner, then in the teams table, employees working on this project can be assigned to each project. The task table stores tasks that need to be performed within a given project. The comments table allows you to assign comments to each task.
 
- Passwords in the database are stored in a safe way - hashed
+ Passwords in the database are stored in a safe way - hashed.
 
 ## JWT Token
 
-The ability to perform operations on data is only available to users who have a created account in the user database, who must also be logged in and their token must be active. The JWT (JSON Web Tokens) mechanism is used
+The ability to perform operations on data is only available to users who have a created account in the user database, who must also be logged in and their token must be active. The JWT (JSON Web Tokens) mechanism is used.
+
+The JWT token contains encoded information about the time the token was generated, its validity period and the email address of the user who logged in.
 
